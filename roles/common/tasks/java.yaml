@@ -10,17 +10,8 @@
   args:
       chdir: /app
 
-- name: Get Maven version
-  ansible.builtin.shell: mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+
+- name: move jar file
+  ansible.builtin.command: mv target/{{ component }}-{{ version }}.jar {{ component }}.jar
   args:
     chdir: /app
-  register: mvn_version
-
-- name: Set version
-  ansible.builtin.set_fact:
-    version: "{{ mvn_version.stdout }}"
-
-# - name: move jar file
-#   ansible.builtin.command: mv target/{{ component }}-{{ version }}.jar {{ component }}.jar
-#   args:
-#     chdir: /app
